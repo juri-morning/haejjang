@@ -3,434 +3,156 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>해짱 · HOME</title>
+  <title>조월 | 달달한 달인</title>
+  <meta name="description" content="달달한 달인, 우리의 득점" />
+
+  <!-- 썸네일(카톡/메신저 미리보기) -->
+  <meta property="og:title" content="달달한 달인" />
+  <meta property="og:description" content="우리의 득점" />
+  <meta property="og:image" content="thumb-moon.webp" />
+  <meta property="og:type" content="website" />
 
   <style>
     :root{
-      --bg:#121212;
-      --edge:#4A4A4A;
-      --main:#EDEDED;
-      --mid:#B0B0B0;
-      --low:#7A7A7A;
-      --hair: rgba(255,255,255,.06);
-      --card: rgba(0,0,0,.18);
-      --hover: rgba(255,255,255,.05);
+      --bg: #05060a;
+      --text: #ffffff;
+      --muted: rgba(255,255,255,.75);
+      --line: rgba(255,255,255,.18);
+      --card: rgba(0,0,0,.35);
+      --shadow: 0 10px 40px rgba(0,0,0,.45);
+      --radius: 18px;
     }
-
-    *{box-sizing:border-box;}
-    html,body{height:100%;}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      background: radial-gradient(1200px 700px at 50% 30%, #1c1c1c 0%, var(--bg) 60%);
-      color:var(--main);
-      font-family: system-ui,-apple-system,"Noto Sans KR",sans-serif;
-      letter-spacing:-0.2px;
-    }
-    a{color:inherit;text-decoration:none;}
-
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    .frame{
-      width:min(720px,94vw);
-      border:1px solid var(--edge);
-      border-radius:12px;
-      padding: clamp(18px, 4.5vw, 34px);
-      background: var(--card);
-      box-shadow:0 30px 80px rgba(0,0,0,.45);
-      backdrop-filter: blur(2px);
-    }
-
-    .brand{
-      text-align:center;
-      color:var(--mid);
-      font-weight:650;
-      letter-spacing:.6px;
-      font-size: clamp(18px, 4.8vw, 22px);
-      margin: 4px 0 18px;
-    }
-
+    /* HERO */
     .hero{
-      text-align:center;
-      padding: clamp(14px, 4.5vw, 20px) 0;
-      border-top:1px solid var(--hair);
-      border-bottom:1px solid var(--hair);
-    }
-    .hero h1{
-      margin:0;
-      font-size: clamp(24px, 6.8vw, 36px);
-      font-weight:800;
-      line-height:1.25;
-      color:var(--main);
-    }
-
-    .menu{
+      min-height: 100vh;
       display:flex;
-      gap:10px;
+      align-items:flex-end;
       justify-content:center;
-      flex-wrap:wrap;
-      margin: 18px 0 10px;
+      padding: 24px;
+      position: relative;
+      overflow:hidden;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.75)),
+        url("hero-moon.webp") center/cover no-repeat;
     }
-    .tab{
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid transparent;
-      color:var(--mid);
-      font-size:14px;
-      transition:.18s ease;
-      user-select:none;
-    }
-    .tab:hover{
-      background:var(--hover);
-      color:var(--main);
-    }
-    .tab[aria-current="page"]{
-      background:rgba(255,255,255,.04);
-      border-color: rgba(255,255,255,.08);
-      color:var(--main);
-    }
-
-    .page{
-      display:none;
-      margin-top: 10px;
-      padding-top: 14px;
-      border-top:1px solid var(--hair);
-    }
-    .page.active{display:block;}
-
-    .page h2{
-      margin: 6px 0 10px;
-      font-size: 16px;
-      color: var(--mid);
-      font-weight: 700;
-      letter-spacing:.2px;
+    /* 모바일에서 글/버튼이 사진 하단에 안정적으로 앉게 */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0 0;
+      height: 35vh;
+      background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
+      pointer-events:none;
     }
 
     .panel{
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:12px;
-      padding:14px;
-      background: rgba(0,0,0,.20);
-    }
-
-    .muted{ color: var(--low); font-size: 13px; line-height:1.55; }
-    .list{
-      margin: 10px 0 0;
-      padding: 0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-    }
-    .item{
-      padding:12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-    }
-    .item .title{
-      font-weight:750;
-      margin-bottom:6px;
-      color:var(--main);
-    }
-    .item .desc{
-      color:var(--mid);
-      font-size:13px;
-      line-height:1.55;
-      margin:0;
-    }
-
-    /* ✅ 도면/이미지 프레임 */
-    .bp-grid{
-      margin-top:12px;
-      display:grid;
-      gap:12px;
-    }
-    @media (min-width: 720px){
-      .bp-grid{ grid-template-columns: 1fr 1fr; }
-    }
-
-    .bp{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:12px;
-      background: rgba(255,255,255,.02);
-      overflow:hidden;
-    }
-    .bp-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 12px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      color:var(--mid);
-      font-size:13px;
-    }
-    .bp-body{
-      aspect-ratio: 4 / 3; /* 폰/PC 다 안정적 */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.10));
+      width:min(920px, 100%);
       position:relative;
-    }
-    .bp-body::after{
-      content:"";
-      position:absolute;
-      inset:12px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:10px;
-      pointer-events:none;
-    }
-    .bp-placeholder{
-      text-align:center;
-      padding: 12px;
-      color: var(--low);
-      font-size: 13px;
-      line-height:1.55;
-    }
-    .bp img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:none; /* 이미지가 있으면 JS가 보여줌 */
-      background: rgba(0,0,0,.25);
+      z-index:1;
+      padding: 18px 18px 22px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    .sig{
-      margin-top: 18px;
-      text-align:center;
-      color:var(--low);
-      font-size:14px;
-      letter-spacing:.4px;
+    .title{
+      margin:0 0 6px;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing: -0.02em;
+      line-height:1.15;
+    }
+    .subtitle{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size: clamp(13px, 1.8vw, 16px);
+      line-height:1.5;
     }
 
-    .mini{
+    .btns{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-      color: var(--mid);
-      font-size:14px;
-      transition:.18s ease;
+      min-width: 140px;
     }
-    .mini:hover{ background: var(--hover); color: var(--main); }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.10); }
+    .btn:active{ transform: translateY(0px); }
+
+    .btn.primary{
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.35);
+    }
+    .btn.secondary{
+      opacity: .85; /* 보조 버튼 80~85% 느낌 */
+    }
+
+    /* 섹션 */
+    section{
+      padding: 70px 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: radial-gradient(1000px 500px at 50% 0%, rgba(255,255,255,.06), transparent 55%);
+    }
+    .wrap{ width:min(920px, 100%); margin:0 auto; }
+    h2{ margin:0 0 12px; font-size: 22px; }
+    p{ margin:0; color: var(--muted); line-height:1.75; }
+
+    /* 앵커 이동 시 상단 살짝 여백 */
+    :target{ scroll-margin-top: 24px; }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
-    <section class="frame" aria-label="해짱 홈">
+  <!-- 메인 -->
+  <header class="hero" role="banner" aria-label="메인">
+    <div class="panel">
+      <h1 class="title">달달한 달인</h1>
+      <p class="subtitle">우리의 득점</p>
 
-      <div class="brand">해짱</div>
-
-      <div class="hero">
-        <h1>기준은 처음부터<br>공개돼 있었다</h1>
+      <div class="btns">
+        <a class="btn primary" href="#works">작품 더 보기</a>
+        <a class="btn secondary" href="#records">기록 보기</a>
       </div>
+    </div>
+  </header>
 
-      <nav class="menu" aria-label="메뉴">
-        <a class="tab" href="#home"     data-page="home"     aria-current="page">홈</a>
-        <a class="tab" href="#writing"  data-page="writing">글</a>
-        <a class="tab" href="#invention"data-page="invention">발명</a>
-        <a class="tab" href="#shop"     data-page="shop">쇼핑몰</a>
-        <a class="tab" href="#contact"  data-page="contact">연락</a>
-      </nav>
+  <!-- 작품 -->
+  <section id="works">
+    <div class="wrap">
+      <h2>작품</h2>
+      <p>여기에 작품 목록(이미지 카드/포스트 링크)을 붙이면 돼.</p>
+    </div>
+  </section>
 
-      <section class="page active" id="page-home">
-        <h2>홈</h2>
-        <div class="panel">
-          <div class="muted">
-            해는 매년 새로 뜬다.<br>
-            기준은 그대로 있고, 책임만 새로 시작된다.
-          </div>
-          <ul class="list">
-            <li class="item">
-              <div class="title">해짱</div>
-              <p class="desc">정체성(고정). 흔들리지 않는 시작점.</p>
-            </li>
-            <li class="item">
-              <div class="title">중앙 문장</div>
-              <p class="desc">그 해의 말이 아니라, 늘 지키는 기준.</p>
-            </li>
-            <li class="item">
-              <div class="title">연도</div>
-              <p class="desc">매년 바뀌는 책임 표시.</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="page" id="page-writing">
-        <h2>글</h2>
-        <div class="panel">
-          <div class="muted">짧고 정확하게. 말보다 태도.</div>
-          <ul class="list">
-            <li class="item">
-              <div class="title">대표 문장</div>
-              <p class="desc">여기에 네가 고른 한 줄을 고정으로 박아도 되고, 최신 글 3개만 올려도 된다.</p>
-            </li>
-            <li class="item">
-              <div class="title">업데이트 방식</div>
-              <p class="desc">글 제목 / 한 줄 / 날짜 (선택). 많아지면 오히려 힘이 빠진다.</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ✅ 발명 페이지: 도면/이미지 프레임 추가 -->
-      <section class="page" id="page-invention">
-        <h2>발명</h2>
-        <div class="panel">
-          <div class="muted">설명보다 구조. 도면은 “말 대신 보여주는 것”.</div>
-
-          <ul class="list" style="margin-top:12px;">
-            <li class="item">
-              <div class="title">프로젝트</div>
-              <p class="desc">블록 기반 생활이동·안전·복지 통합 설계</p>
-            </li>
-            <li class="item">
-              <div class="title">제품</div>
-              <p class="desc">아날로그 조절/판단 도구(회전·누름 물리 입력)</p>
-            </li>
-          </ul>
-
-          <!-- 도면 프레임들 -->
-          <div class="bp-grid" aria-label="도면 프레임">
-            <div class="bp">
-              <div class="bp-head">
-                <span>도면 01</span>
-                <span class="muted">Blueprint</span>
-              </div>
-              <div class="bp-body">
-                <img src="images/blueprint-1.jpg" alt="도면 01" data-bp>
-                <div class="bp-placeholder" data-bp-ph>
-                  이미지 준비되면<br>
-                  <b>images/blueprint-1.jpg</b>로 넣으면 자동 표시됨
-                </div>
-              </div>
-            </div>
-
-            <div class="bp">
-              <div class="bp-head">
-                <span>도면 02</span>
-                <span class="muted">Sketch</span>
-              </div>
-              <div class="bp-body">
-                <img src="images/blueprint-2.jpg" alt="도면 02" data-bp>
-                <div class="bp-placeholder" data-bp-ph>
-                  이미지 준비되면<br>
-                  <b>images/blueprint-2.jpg</b>로 넣으면 자동 표시됨
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="muted" style="margin-top:12px;">
-            *이미지 파일만 넣으면 끝.<br>
-            폴더 구조 예: <b>index.html</b> / <b>images/blueprint-1.jpg</b>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-shop">
-        <h2>쇼핑몰</h2>
-        <div class="panel">
-          <div class="muted">여긴 링크만 깔끔하게. (상품이 늘면 카테고리만 추가)</div>
-          <ul class="list">
-            <li class="item">
-              <div class="title">메인 스토어</div>
-              <p class="desc">링크 준비되면 여기에 붙이면 끝.</p>
-            </li>
-            <li class="item">
-              <div class="title">브랜드 문장</div>
-              <p class="desc">“안전은 기본이고 잠은 복지다” 같은 고정 문구를 넣어도 좋다.</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="page" id="page-contact">
-        <h2>연락</h2>
-        <div class="panel">
-          <div class="muted">필요한 사람만 오게, 조용하게 열어둔다.</div>
-          <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
-            <a class="mini" href="mailto:wolyongjo777777@kakao.com">메일 보내기</a>
-            <a class="mini" href="#home" data-page="home">홈으로</a>
-          </div>
-          <div class="muted" style="text-align:center; margin-top:10px;">
-            wolyongjo777777@kakao.com
-          </div>
-        </div>
-      </section>
-
-      <div class="sig">조월 <span id="year"></span></div>
-
-    </section>
-  </main>
-
-  <script>
-    // 연도 자동
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // 탭 전환
-    const tabs = Array.from(document.querySelectorAll(".tab"));
-    const pages = {
-      home: document.getElementById("page-home"),
-      writing: document.getElementById("page-writing"),
-      invention: document.getElementById("page-invention"),
-      shop: document.getElementById("page-shop"),
-      contact: document.getElementById("page-contact"),
-    };
-
-    function activate(pageKey){
-      Object.values(pages).forEach(p => p.classList.remove("active"));
-      tabs.forEach(t => t.removeAttribute("aria-current"));
-
-      const page = pages[pageKey] || pages.home;
-      page.classList.add("active");
-      const tab = tabs.find(t => t.dataset.page === pageKey) || tabs[0];
-      tab.setAttribute("aria-current","page");
-
-      const hash = "#" + (pageKey || "home");
-      if (location.hash !== hash) history.replaceState(null, "", hash);
-    }
-
-    tabs.forEach(tab=>{
-      tab.addEventListener("click", (e)=>{
-        const key = tab.dataset.page;
-        if(key){
-          e.preventDefault();
-          activate(key);
-        }
-      });
-    });
-
-    // ✅ 도면 이미지 있으면 placeholder 숨기고 이미지 표시
-    document.querySelectorAll("img[data-bp]").forEach(img=>{
-      img.addEventListener("load", ()=>{
-        img.style.display = "block";
-        const ph = img.parentElement.querySelector("[data-bp-ph]");
-        if(ph) ph.style.display = "none";
-      });
-      img.addEventListener("error", ()=>{
-        // 이미지 없으면 placeholder 유지(기본)
-      });
-    });
-
-    const initial = (location.hash || "#home").replace("#","");
-    activate(initial);
-
-    window.addEventListener("hashchange", ()=>{
-      const key = (location.hash || "#home").replace("#","");
-      activate(key);
-    });
-  </script>
+  <!-- 기록 -->
+  <section id="records">
+    <div class="wrap">
+      <h2>기록</h2>
+      <p>여기에 짧은 글/노트/선언문/소개 같은 “맥락”을 넣으면 된다.</p>
+    </div>
+  </section>
 </body>
 </html>
