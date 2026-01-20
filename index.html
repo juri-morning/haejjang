@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -6,7 +7,7 @@
   <title>조월 | 달달한 달인</title>
   <meta name="description" content="달달한 달인, 우리의 득점" />
 
-  <!-- 썸네일(카톡/메신저 미리보기) -->
+  <!-- 썸네일 -->
   <meta property="og:title" content="달달한 달인" />
   <meta property="og:description" content="우리의 득점" />
   <meta property="og:image" content="thumb-moon.webp" />
@@ -14,124 +15,126 @@
 
   <style>
     :root{
-      --bg: #05060a;
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.75);
-      --line: rgba(255,255,255,.18);
-      --card: rgba(0,0,0,.35);
-      --shadow: 0 10px 40px rgba(0,0,0,.45);
-      --radius: 18px;
+      --bg:#05060a;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.75);
+      --line:rgba(255,255,255,.18);
+      --card:rgba(0,0,0,.35);
+      --shadow:0 10px 40px rgba(0,0,0,.45);
+      --radius:18px;
     }
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box;}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
 
     /* HERO */
     .hero{
-      min-height: 100vh;
+      min-height:100vh;
       display:flex;
       align-items:flex-end;
       justify-content:center;
-      padding: 24px;
-      position: relative;
+      padding:24px;
+      position:relative;
       overflow:hidden;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.75)),
+        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.85)),
         url("hero-moon.webp") center/cover no-repeat;
+      filter: contrast(1.05); /* PC 대비 미세 보정 */
     }
-    /* 모바일에서 글/버튼이 사진 하단에 안정적으로 앉게 */
+
     .hero::after{
       content:"";
       position:absolute;
       inset:auto 0 0 0;
-      height: 35vh;
-      background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
+      height:35vh;
+      background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
       pointer-events:none;
     }
 
     .panel{
-      width:min(920px, 100%);
+      width:min(920px,100%);
       position:relative;
       z-index:1;
-      padding: 18px 18px 22px;
-      border: 1px solid var(--line);
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      padding:18px 18px 22px;
+      border:1px solid var(--line);
+      background:var(--card);
+      backdrop-filter:blur(10px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
     .title{
       margin:0 0 6px;
-      font-size: clamp(22px, 3.2vw, 34px);
-      letter-spacing: -0.02em;
+      font-size:clamp(22px,3.2vw,34px);
+      letter-spacing:-0.02em;
       line-height:1.15;
     }
     .subtitle{
       margin:0 0 16px;
-      color: var(--muted);
-      font-size: clamp(13px, 1.8vw, 16px);
+      color:var(--muted);
+      font-size:clamp(13px,1.8vw,16px);
       line-height:1.5;
     }
 
     .btns{
       display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap:12px;
+      flex-wrap:wrap;
     }
     .btn{
       appearance:none;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
       text-decoration:none;
-      font-weight: 650;
-      letter-spacing: -0.01em;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      font-weight:650;
+      letter-spacing:-0.01em;
+      transition:transform .08s ease,background .15s ease,border-color .15s ease;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-width: 140px;
+      min-width:140px;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.10); }
-    .btn:active{ transform: translateY(0px); }
-
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:rgba(255,255,255,.32);
+      background:rgba(255,255,255,.10);
+    }
     .btn.primary{
-      background: rgba(255,255,255,.14);
-      border-color: rgba(255,255,255,.35);
+      background:rgba(255,255,255,.14);
+      border-color:rgba(255,255,255,.35);
     }
     .btn.secondary{
-      opacity: .85; /* 보조 버튼 80~85% 느낌 */
+      opacity:.85;
     }
 
-    /* 섹션 */
     section{
-      padding: 70px 24px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      background: radial-gradient(1000px 500px at 50% 0%, rgba(255,255,255,.06), transparent 55%);
+      padding:70px 24px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background:radial-gradient(1000px 500px at 50% 0%, rgba(255,255,255,.06), transparent 55%);
     }
-    .wrap{ width:min(920px, 100%); margin:0 auto; }
-    h2{ margin:0 0 12px; font-size: 22px; }
-    p{ margin:0; color: var(--muted); line-height:1.75; }
+    .wrap{
+      width:min(920px,100%);
+      margin:0 auto;
+    }
+    h2{margin:0 0 12px;font-size:22px;}
+    p{margin:0;color:var(--muted);line-height:1.75;}
 
-    /* 앵커 이동 시 상단 살짝 여백 */
-    :target{ scroll-margin-top: 24px; }
+    :target{scroll-margin-top:24px;}
   </style>
 </head>
 
 <body>
-  <!-- 메인 -->
-  <header class="hero" role="banner" aria-label="메인">
+  <header class="hero">
     <div class="panel">
       <h1 class="title">달달한 달인</h1>
       <p class="subtitle">우리의 득점</p>
-
       <div class="btns">
         <a class="btn primary" href="#works">작품 더 보기</a>
         <a class="btn secondary" href="#records">기록 보기</a>
@@ -139,19 +142,17 @@
     </div>
   </header>
 
-  <!-- 작품 -->
   <section id="works">
     <div class="wrap">
       <h2>작품</h2>
-      <p>여기에 작품 목록(이미지 카드/포스트 링크)을 붙이면 돼.</p>
+      <p>여기에 작품을 추가하면 됩니다.</p>
     </div>
   </section>
 
-  <!-- 기록 -->
   <section id="records">
     <div class="wrap">
       <h2>기록</h2>
-      <p>여기에 짧은 글/노트/선언문/소개 같은 “맥락”을 넣으면 된다.</p>
+      <p>여기에 글과 기록을 추가하면 됩니다.</p>
     </div>
   </section>
 </body>
